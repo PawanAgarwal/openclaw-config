@@ -11,9 +11,10 @@ rsync -a --delete \
   --exclude='memory' \
   --exclude='memory/*' \
   --exclude='.openclaw' \
+  --exclude='sessions' \
+  --exclude='sessions/*' \
+  --exclude='*.jsonl' \
   --exclude='workspace-state.json' \
-  --exclude='avatars' \
-  --exclude='skills' \
   "$SRC_DIR/workspace/" "$ROOT_DIR/workspace/"
 rsync -a --delete \
   --exclude='.git' \
