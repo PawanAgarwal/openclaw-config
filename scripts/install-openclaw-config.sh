@@ -6,8 +6,21 @@ SRC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 mkdir -p "$ROOT_DIR/workspace" "$ROOT_DIR/workspaces/pm" "$ROOT_DIR/workspaces/dev-backend" "$ROOT_DIR/workspaces/dev-data" "$ROOT_DIR/workspaces/dev-infra" "$ROOT_DIR/workspaces/qa" "$ROOT_DIR/workspaces/retro" "$ROOT_DIR/cron"
 
-rsync -a --delete --exclude='.git' "$SRC_DIR/workspace/" "$ROOT_DIR/workspace/"
-rsync -a --delete --exclude='.git' "$SRC_DIR/workspaces/" "$ROOT_DIR/workspaces/"
+rsync -a --delete \
+  --exclude='.git' \
+  --exclude='memory' \
+  --exclude='memory/*' \
+  --exclude='.openclaw' \
+  --exclude='workspace-state.json' \
+  --exclude='avatars' \
+  --exclude='skills' \
+  "$SRC_DIR/workspace/" "$ROOT_DIR/workspace/"
+rsync -a --delete \
+  --exclude='.git' \
+  --exclude='memory' \
+  --exclude='projects' \
+  --exclude='repo' \
+  "$SRC_DIR/workspaces/" "$ROOT_DIR/workspaces/"
 rsync -a --delete "$SRC_DIR/cron/jobs.json" "$ROOT_DIR/cron/jobs.json"
 
 cat <<MSG
