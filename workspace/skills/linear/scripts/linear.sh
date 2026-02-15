@@ -131,17 +131,26 @@ case "$cmd" in
       echo "Usage: linear.sh issue <TEAM-123>" >&2
       exit 1
     fi
+    if [[ ! "$issue_id" =~ ^[A-Z]+-[0-9]+$ ]]; then
+      echo "Invalid issue id: $issue_id (expected TEAM-123 format)" >&2
+      exit 1
+    fi
     team_key="${issue_id%%-*}"
     issue_num="${issue_id##*-}"
-    gql "{ issues(filter: { number: { eq: $issue_num }, team: { key: { eq: \\\"$team_key\\\" } } }) { nodes { identifier title description state { name } priority priorityLabel assignee { name } project { name } team { name } createdAt dueDate } } }" | jq -r '.data.issues.nodes[0] | "
+    gql "{ issues(filter: { number: { eq: $issue_num }, team: { key: { eq: \\\"$team_key\\\" } } }) { nodes { identifier title description state { name } priority priorityLabel assignee { name } project { name } team { name } createdAt dueDate } } }" | jq -r --arg id "$issue_id" '
+      if (.data.issues.nodes | length) == 0 then
+        "Issue not found: " + $id
+      else
+        .data.issues.nodes[0] | "
 \(.identifier): \(.title)
 State: \(.state.name) | Priority: \(.priorityLabel // "None") | Assignee: \(.assignee.name // "Unassigned")
 Project: \(.project.name // "None") | Team: \(.team.name)
-Created: \(.createdAt | split("T")[0])
+Created: \((.createdAt // "") | split("T")[0])
 \(if .dueDate then "Due: " + .dueDate else "" end)
 
 \(.description // "No description")
-"'
+"
+      end'
     ;;
     
   create)
@@ -248,6 +257,23 @@ Created: \(.createdAt | split("T")[0])
     result=$(gql "mutation { issueUpdate(id: \\\"$issue_uuid\\\", input: { assigneeId: \\\"$user_id\\\" }) { success issue { identifier assignee { name } } } }")
     echo "$result" | jq -r 'if .data.issueUpdate.success then "Assigned \(.data.issueUpdate.issue.identifier) → \(.data.issueUpdate.issue.assignee.name)" else "Error: " + (.errors[0].message // "Unknown error") end'
     ;;
+
+  unassign)
+    issue_id="${1:-}"
+    if [[ -z "$issue_id" ]]; then
+      echo "Usage: linear.sh unassign <TEAM-123>" >&2
+      exit 1
+    fi
+    team_key="${issue_id%%-*}"
+    issue_num="${issue_id##*-}"
+    issue_uuid=$(gql "{ issues(filter: { number: { eq: $issue_num }, team: { key: { eq: \\\"$team_key\\\" } } }) { nodes { id } } }" | jq -r '.data.issues.nodes[0].id')
+    if [[ -z "$issue_uuid" || "$issue_uuid" == "null" ]]; then
+      echo "Could not find issue: $issue_id" >&2
+      exit 1
+    fi
+    result=$(gql "mutation { issueUpdate(id: \\\"$issue_uuid\\\", input: { assigneeId: null }) { success issue { identifier assignee { name } } } }")
+    echo "$result" | jq -r 'if .data.issueUpdate.success then "Unassigned \(.data.issueUpdate.issue.identifier)" else "Error: " + (.errors[0].message // "Unknown error") end'
+    ;;
     
   projects)
     gql "{ projects(first: 20) { nodes { name state progress startDate targetDate teams { nodes { name } } } } }" | jq -r '.data.projects.nodes[] | "\(.name) [\(.state)] - \((.progress * 100) | floor)% complete \(if .targetDate then "(due " + .targetDate + ")" else "" end)"'
@@ -303,6 +329,7 @@ Created: \(.createdAt | split("T")[0])
     echo "  status <ID> <state>               Update status"
     echo "  priority <ID> <level>             Set priority"
     echo "  assign <ID> <user>                Assign to user"
+    echo "  unassign <ID>                     Clear assignee"
     echo "  projects           List all projects"
     echo "  standup            Daily standup summary"
     ;;

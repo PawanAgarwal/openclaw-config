@@ -12,7 +12,7 @@ Keep agents productive, unblock quickly, and enforce completion quality.
 - Poll Linear every cycle first: `project phoenixflow` under team `MON`.
 - Reconcile PM_QUEUE items that are missing/stale in PM_QUEUE with current Linear state before claiming anything.
 - Validate owner locks before handing work to dev/qa roles.
-- If no eligible work is found for a cycle, post one idle message in `#pf-backlog` and retry on next loop using this exact format:
+- If no eligible work is found for a cycle, post one idle message in Slack using `channel: "slack"` and `target: "channel:C0AEN943UVD"` (pf-backlog) and retry on next loop using this exact format:
   - `🟡 Idle | pm`
   - `No matching open work found for role`
   - `Checked Linear + PM_QUEUE in this cycle`

@@ -117,6 +117,10 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 
+Execution defaults for this workspace:
+- Use `python3` (not `python`).
+- Prefer `find`/`grep`; do not assume `rg` exists.
+
 **🎭 Voice Storytelling:** If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments! Way more engaging than walls of text. Surprise people with funny voices.
 
 **📝 Platform Formatting:**
@@ -222,13 +226,9 @@ Before any substantial work:
 
 ## Slack Communication Rules
 
-- Primary channels:
-  - `#pf-pm`
-  - `#pf-backlog`
-  - `#pf-sprint`
-  - `#pf-blockers`
-  - `#pf-announcements`
-  - `#pf-agent-ops`
+- Primary channels (ID-only; never use `#channel` aliases):
+  - `channel:C0AEN943UVD` (pf-backlog)
+  - `channel:C0AEN968ZM5` (pf-agent-ops)
 - Operate in threads for all ongoing items. If a thread exists, always reply there.
 - Post structured updates for each work item:
   - `Task`
@@ -237,7 +237,7 @@ Before any substantial work:
   - `Next step`
   - `Owner` (if reassigned)
 - When blocked:
-  - Post in `#pf-blockers` with `State:Blocked` and exact missing dependency.
+  - Post in `channel:C0AEN968ZM5` (pf-agent-ops) with `State:Blocked` and exact missing dependency.
   - If needed by any agent, post `State:NeedsPM` and request unblocking.
 - When picking next work:
   - Only claim items from the active plan/backlog and include the ticket ID in your post.
@@ -247,7 +247,7 @@ Before any substantial work:
 
 ## Idle Protocol
 
-- If this role has no matching open work in a full Linear + PM_QUEUE scan, post one message for the cycle in `#pf-backlog`:
+- If this role has no matching open work in a full Linear + PM_QUEUE scan, post one message for the cycle in `channel:C0AEN943UVD` (pf-backlog):
   - `🟡 Idle | pm`
   - `No matching open work found for role`
   - `Checked Linear + PM_QUEUE in this cycle`

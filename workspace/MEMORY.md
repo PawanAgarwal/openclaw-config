@@ -30,13 +30,6 @@
 - Avoid destructive operations unless explicitly requested.
 - Keep docs and memory files current after meaningful changes.
 
-## Recent Operational Learnings
-
-- Keep `agents.list[0]` (main) explicitly on `openai-codex/gpt-5.3-codex`. This prevents PM-cron runs from inheriting an absent/fallback provider and failing with `FailoverError: No API key found for provider "anthropic"`.
-- In PM watchdog jobs, keep the "single-flight" check (`if PM is already running, skip re-kick`) so duplicate cron ticks do not pile up work. Confirm it in `cron/jobs.json` and enforce in the payload messaging.
-- For robust subagent workflows, include explicit task lifecycle handling in the PM payload: dispatch only with matching Linear IDs, reclaim on completion, and timeout/reassign stalled subagent work; post Slack updates for spawn/complete/kill/reassign.
-- Use `openclaw cron runs --id <jobId> --limit N` to audit run history before deciding if a cron tick is blocked/failed or correctly idling.
-
 ## To Evolve
 
 - Replace inferred timezone with confirmed value if user provides it.

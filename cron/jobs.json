@@ -5,9 +5,9 @@
       "id": "ced66786-052b-40f9-85ee-1046b039905b",
       "agentId": "pm",
       "name": "pm-watchdog-active-context",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771135124606,
-      "updatedAtMs": 1771169902711,
+      "updatedAtMs": 1771183081061,
       "schedule": {
         "kind": "every",
         "everyMs": 180000,
@@ -17,28 +17,27 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. If PM is currently running, end this run (no re-kick). Otherwise: poll Linear (`/Users/pawanagarwal/.openclaw/workspace/skills/linear/scripts/linear.sh project phoenixflow`) and PM_QUEUE; ensure every PM dispatch has a matching Linear issue and PM_QUEUE aligned; spawn/reconcile workers using PM subagent allowances up to max concurrent, prioritizing Backlog; re-claim and dispatch follow-on tasks when a subagent finishes; on in-flight timeout, terminate and reassign task; post Slack for spawn, completion sync, timeout kill, and reassignment."
+        "message": "Read ALL of these in order at the start of each run:\n1. `/Users/pawanagarwal/github/phenixflow/docs/PM_WATCHDOG_PROCESS.md`\n2. `/Users/pawanagarwal/.openclaw/workspaces/pm/AGENT_PROTOCOL.md`\n3. `/Users/pawanagarwal/github/phenixflow/CURRENT_CONTEXT.md`\n\nGOAL (single run): follow PM_WATCHDOG_PROCESS.md exactly to drive ONE MON issue all the way through Dev ➝ QA ➝ Done/Blocked-equivalent with full Slack + Linear + Git evidence.\n\nMANDATORY EXECUTION FLOW (must match the process doc):\n1) Select the highest-priority eligible MON-* issue from Linear project `phoenixflow` (state Backlog/Todo only, dependencies satisfied).\n2) Transition Linear issue to In Progress + assign the appropriate dev role. Update PM_QUEUE entry with owner/start/evidence requirements.\n3) Post Slack kickoff to BOTH `channel:C0AEN968ZM5` and `channel:C0AEN943UVD` summarizing claim, branch, acceptance criteria, evidence needs.\n4) Spawn exactly one dev subagent with the branch/test instructions and wait for completion. Handle completion/blocked per Section 3 of the process doc (update Linear, PM_QUEUE, Slack accordingly).\n5) When dev success with PR: move issue to In Review, post QA kickoff to both channels, spawn exactly one QA subagent with explicit checklist, and wait for QA results.\n6) QA pass → follow Section 5 pass flow: merge PR into `main` (fast-forward or rebase), run required tests, push, set Linear to Done, update PM_QUEUE, post completion Slack note with commit hash + evidence.\n7) QA fail → follow Section 5 fail flow: set Linear back to Todo (NOT blocked), add blocker note + Slack summary, update PM_QUEUE, re-dispatch to dev (loop back to step 2) until pass or explicit blocker.\n8) Every Linear state change MUST have a paired Slack update (per Section 6) and PM_QUEUE entry.\n9) Never use raw curl to Linear, never call `linear.sh status … blocked`, never use `python` or heredoc `python3 - <<'PY'`, never use `rg`, and never post to Slack without channel IDs.\n\nREQUIRED FINAL OUTPUT FORMAT:\n- `SUCCESS_CRITERIA_MET: yes|no`\n- `MON_ID: <id or none>`\n- `LINEAR_TRANSITIONS: <ordered list>`\n- `DEV_SESSION: <sessionKey or none>`\n- `QA_SESSION: <sessionKey or none>`\n- `SLACK_MESSAGES: <channel:id list>`\n- `FINAL_OUTCOME: done|blocked|incomplete`\n- `BLOCKERS: <none or list>`\n\nPASS means: doc followed end-to-end (selection ➝ dev ➝ QA ➝ merge/closeout), all Slack + Linear + PM_QUEUE updates done, and no forbidden commands were used.",
+        "model": "openai-codex/gpt-5.3-codex"
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1771170044606,
-        "lastRunAtMs": 1771169864616,
+        "lastRunAtMs": 1771182915057,
         "lastStatus": "ok",
-        "lastDurationMs": 38095,
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771170044614
+        "lastDurationMs": 131404,
+        "consecutiveErrors": 0
       }
     },
     {
       "id": "0e78646f-5c47-4f65-9fb5-fa70475b0aac",
       "agentId": "pm",
       "name": "pm-backlog-grooming",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771135126009,
-      "updatedAtMs": 1771136920165,
+      "updatedAtMs": 1771178750080,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -48,23 +47,27 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Reconcile Linear project `phoenixflow` into PM_QUEUE: add missing Backlog entries, split oversized work, and keep role-matched Ready capacity."
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md using only these exact paths in order: `/Users/pawanagarwal/.openclaw/workspaces/pm/AGENT_PROTOCOL.md`, then fallback `/Users/pawanagarwal/github/phenixflow/AGENT_PROTOCOL.md`. Do not scan home directories with broad `find ~` searches. Reconcile Linear project `phoenixflow` into PM_QUEUE: add missing Backlog entries, split oversized work, enforce Role tags, and update subagent-ready capacity notes. If no execution agents are running, detect stale/dangling In Progress items and reset them with supported commands only (`linear.sh status <MON-ID> todo|backlog` + `linear.sh unassign <MON-ID>`). Hard runtime rules: use python3 (never python), use find/grep only in allowed workspace/repo paths (never rg), and do not use raw curl+jq parsing pipelines when linear.sh supports the operation. If one issue update fails, continue processing and include the failure in report. Post concise run report to channel:C0AEN943UVD and return compact completion summary with Slack post status/message id.",
+        "model": "openai-codex/gpt-5.3-codex"
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1771171126009
+        "lastRunAtMs": 1771171126012,
+        "lastStatus": "ok",
+        "lastDurationMs": 90875,
+        "consecutiveErrors": 0
       }
     },
     {
       "id": "9d8770ed-28b5-4e8d-9dbb-edafa4b8b3e6",
       "agentId": "pm",
       "name": "pm-sprint-planning",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771135127375,
-      "updatedAtMs": 1771136920862,
+      "updatedAtMs": 1771178445318,
       "schedule": {
         "kind": "every",
         "everyMs": 86400000,
@@ -74,23 +77,27 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Build sprint goal from Linear + PM_QUEUE and update planning scope with explicit target outcomes per role."
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md using only these exact paths in order: `/Users/pawanagarwal/.openclaw/workspaces/pm/AGENT_PROTOCOL.md`, then fallback `/Users/pawanagarwal/github/phenixflow/AGENT_PROTOCOL.md`. Do not scan home directories with broad `find ~` searches. Build sprint goal from Linear + PM_QUEUE and update planning scope with explicit target outcomes per role. Before planning, check active execution agents/sessions. If no execution agents are running, inspect Linear project `phoenixflow` and reset dangling/stale In Progress issues back to New/Todo and unassign them for fresh pickup. Use only these commands for issue reset: `linear.sh status <MON-ID> todo` (or backlog/new equivalent) and `linear.sh unassign <MON-ID>`. Do NOT use `linear.sh assign <id> unassigned` and do NOT use raw curl+jq pipelines. If one issue reset fails, continue and include failures in report. At the end of every run, always post a concise action report to Slack channel:C0AEN943UVD summarizing: issues inspected, issues moved, assignments cleared, planning updates, and blockers/errors. Finally, return a compact completion summary that includes whether Slack post succeeded and (if available) Slack message id.",
+        "model": "openai-codex/gpt-5.3-codex"
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1771221527375
+        "lastRunAtMs": 1771178403037,
+        "lastStatus": "ok",
+        "lastDurationMs": 42281,
+        "consecutiveErrors": 0
       }
     },
     {
       "id": "b2515d93-0854-4cc8-8358-0e7222e685c6",
       "agentId": "pm",
       "name": "pm-sprint-checkpoint",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771135128743,
-      "updatedAtMs": 1771136921533,
+      "updatedAtMs": 1771178750088,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -100,23 +107,22 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Run sprint checkpoint and update PM_QUEUE + Linear states for at-risk, blocked, and resequenced tasks with owners and next actions."
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md using only these exact paths in order: `/Users/pawanagarwal/.openclaw/workspaces/pm/AGENT_PROTOCOL.md`, then fallback `/Users/pawanagarwal/github/phenixflow/AGENT_PROTOCOL.md`. Do not scan home directories with broad `find ~` searches. Run sprint checkpoint and update PM_QUEUE + Linear states for at-risk, blocked, and resequenced tasks with owners and next actions. If no execution agents are running, reset stale/dangling In Progress issues back to todo/new and clear assignees using supported commands (`linear.sh status <MON-ID> todo|backlog` + `linear.sh unassign <MON-ID>`). Hard runtime rules: use python3 (never python), use find/grep only in allowed workspace/repo paths (never rg), and do not use raw curl+jq parsing pipelines when linear.sh supports the operation. If one issue update fails, continue and report it. Post concise run report to channel:C0AEN943UVD and return compact completion summary with Slack post status/message id.",
+        "model": "openai-codex/gpt-5.3-codex"
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
-      "state": {
-        "nextRunAtMs": 1771178328743
-      }
+      "state": {}
     },
     {
       "id": "d3aa271b-b957-4610-9419-0b553b3d5fb9",
       "agentId": "retro",
       "name": "retro-process-review",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771135136979,
-      "updatedAtMs": 1771136925593,
+      "updatedAtMs": 1771178750091,
       "schedule": {
         "kind": "every",
         "everyMs": 86400000,
@@ -126,15 +132,13 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Analyze cycle outcome (Linear + PM_QUEUE): blockers, throughput, defects, unstarted inventory. Create measurable improvements and post in #pf-retro; if no new signal, post `🟡 Idle | retro` in #pf-retro."
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md using only these exact paths in order: `/Users/pawanagarwal/.openclaw/workspaces/pm/AGENT_PROTOCOL.md`, then fallback `/Users/pawanagarwal/github/phenixflow/AGENT_PROTOCOL.md`. Do not scan home directories with broad `find ~` searches. Analyze cycle outcome (Linear + PM_QUEUE): blockers, throughput, defects, unstarted inventory. Create measurable improvements and post retro summary. Slack rule: use explicit channel IDs only; do not use #channel names. If retro channel ID is not configured, post summary to channel:C0AEN968ZM5 as fallback and include blocker requesting retro channel ID mapping. Hard runtime rules: use python3 (never python), use find/grep only in allowed workspace/repo paths (never rg), and do not use raw curl+jq parsing pipelines when linear.sh supports the operation. Return compact completion summary with Slack post status/message id(s)."
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
-      "state": {
-        "nextRunAtMs": 1771221536979
-      }
+      "state": {}
     }
   ]
 }
