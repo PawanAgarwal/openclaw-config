@@ -1,6 +1,17 @@
-# Keep local generated runtime state out of this repo when applying
+# Keep local-generated/runtime artifacts out of git
+# These are produced by running agents and should never be committed.
 **/sessions/
 **/runs/
 **/*.jsonl
+**/logs/
+**/memory/
+**/projects/
+**/repo/
+**/.openclaw/
+**/identity/
+**/devices/
+**/credentials/
 **/workspace-state.json
+openclaw.json
 openclaw.local.json
+*.local.json
