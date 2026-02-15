@@ -44,6 +44,16 @@
         "workspace": "__OPENCLAW_ROOT__/workspaces/pm",
         "agentDir": "__OPENCLAW_ROOT__/agents/pm/agent",
         "model": "openai-codex/gpt-5.3-codex",
+        "subagents": {
+          "allowAgents": [
+            "dev-backend",
+            "dev-data",
+            "dev-infra",
+            "qa"
+          ],
+          "maxConcurrent": 8,
+          "thinking": "off"
+        },
         "identity": {
           "name": "Compass",
           "emoji": "📌"
