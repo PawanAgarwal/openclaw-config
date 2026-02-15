@@ -1,0 +1,6 @@
+# Keep local generated runtime state out of this repo when applying
+**/sessions/
+**/runs/
+**/*.jsonl
+**/workspace-state.json
+openclaw.local.json

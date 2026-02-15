@@ -1,0 +1,370 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.14",
+    "lastTouchedAt": "2026-02-15T06:55:47.378Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-15T06:55:47.353Z",
+    "lastRunVersion": "2026.2.14",
+    "lastRunCommand": "configure",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "openai-codex:default": {
+        "provider": "openai-codex",
+        "mode": "oauth"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "openai-codex/gpt-5.3-codex"
+      },
+      "models": {
+        "openai-codex/gpt-5.3-codex": {}
+      },
+      "workspace": "/Users/pawanagarwal/.openclaw/workspace",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "main"
+      },
+      {
+        "id": "pm",
+        "name": "pm",
+        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/pm",
+        "agentDir": "/Users/pawanagarwal/.openclaw/agents/pm/agent",
+        "model": "openai-codex/gpt-5.3-codex",
+        "identity": {
+          "name": "Compass",
+          "emoji": "📌"
+        }
+      },
+      {
+        "id": "dev-backend",
+        "name": "dev-backend",
+        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/dev-backend",
+        "agentDir": "/Users/pawanagarwal/.openclaw/agents/dev-backend/agent",
+        "model": "openai-codex/gpt-5.3-codex",
+        "identity": {
+          "name": "Bolt",
+          "emoji": "🧱"
+        }
+      },
+      {
+        "id": "dev-data",
+        "name": "dev-data",
+        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/dev-data",
+        "agentDir": "/Users/pawanagarwal/.openclaw/agents/dev-data/agent",
+        "model": "openai-codex/gpt-5.3-codex",
+        "identity": {
+          "name": "Delta",
+          "emoji": "📊"
+        }
+      },
+      {
+        "id": "dev-infra",
+        "name": "dev-infra",
+        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/dev-infra",
+        "agentDir": "/Users/pawanagarwal/.openclaw/agents/dev-infra/agent",
+        "model": "openai-codex/gpt-5.3-codex",
+        "identity": {
+          "name": "Forge",
+          "emoji": "🛡️"
+        }
+      },
+      {
+        "id": "qa",
+        "name": "qa",
+        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/qa",
+        "agentDir": "/Users/pawanagarwal/.openclaw/agents/qa/agent",
+        "model": "openai-codex/gpt-5.3-codex",
+        "identity": {
+          "name": "Probe",
+          "emoji": "🔍"
+        }
+      },
+      {
+        "id": "retro",
+        "name": "retro",
+        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/retro",
+        "agentDir": "/Users/pawanagarwal/.openclaw/agents/retro/agent",
+        "model": "openai-codex/gpt-5.3-codex",
+        "identity": {
+          "name": "Kaizen",
+          "emoji": "📈"
+        }
+      }
+    ]
+  },
+  "bindings": [
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AEXAVHBDH"
+        }
+      }
+    },
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AEN943UVD"
+        }
+      }
+    },
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AEXATSA3D"
+        }
+      }
+    },
+    {
+      "agentId": "dev-backend",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AF7APBDGU"
+        }
+      }
+    },
+    {
+      "agentId": "dev-data",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AFGKWFK8R"
+        }
+      }
+    },
+    {
+      "agentId": "dev-infra",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AF1LGFRK8"
+        }
+      }
+    },
+    {
+      "agentId": "qa",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AF09QFKV3"
+        }
+      }
+    },
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AF09Q0QTF"
+        }
+      }
+    },
+    {
+      "agentId": "retro",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AF09RFZV3"
+        }
+      }
+    },
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AEN94D8DD"
+        }
+      }
+    },
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "slack",
+        "accountId": "default",
+        "peer": {
+          "kind": "channel",
+          "id": "C0AEN968ZM5"
+        }
+      }
+    },
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "slack",
+        "accountId": "default"
+      }
+    },
+    {
+      "agentId": "pm",
+      "match": {
+        "channel": "telegram",
+        "accountId": "default"
+      }
+    }
+  ],
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "bootstrap-extra-files": {
+          "enabled": true
+        },
+        "boot-md": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "__TELEGRAM_BOT_TOKEN__",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial"
+    },
+    "slack": {
+      "mode": "socket",
+      "webhookPath": "/slack/events",
+      "enabled": true,
+      "botToken": "__SLACK_BOT_TOKEN__",
+      "appToken": "__SLACK_APP_TOKEN__",
+      "userTokenReadOnly": true,
+      "groupPolicy": "allowlist",
+      "dmPolicy": "open",
+      "allowFrom": [
+        "*"
+      ],
+      "dm": {
+        "enabled": true
+      },
+      "channels": {
+        "C0AEXAVHBDH": {
+          "allow": true
+        },
+        "C0AEN943UVD": {
+          "allow": true
+        },
+        "C0AEXATSA3D": {
+          "allow": true
+        },
+        "C0AF7APBDGU": {
+          "allow": true
+        },
+        "C0AFGKWFK8R": {
+          "allow": true
+        },
+        "C0AF1LGFRK8": {
+          "allow": true
+        },
+        "C0AF09QFKV3": {
+          "allow": true
+        },
+        "C0AF09Q0QTF": {
+          "allow": true
+        },
+        "C0AF09RFZV3": {
+          "allow": true
+        },
+        "C0AEN94D8DD": {
+          "allow": true
+        },
+        "C0AEN968ZM5": {
+          "allow": true
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "__OPENCLAW_GATEWAY_TOKEN__"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "calendar.add",
+        "contacts.add",
+        "reminders.add"
+      ]
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      },
+      "slack": {
+        "enabled": true
+      }
+    }
+  }
+}

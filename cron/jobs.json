@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "ced66786-052b-40f9-85ee-1046b039905b",
+      "agentId": "pm",
+      "name": "pm-watchdog-active-context",
+      "enabled": true,
+      "createdAtMs": 1771135124606,
+      "updatedAtMs": 1771169902711,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 180000,
+        "anchorMs": 1771135124606
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Poll Linear (`/Users/pawanagarwal/.openclaw/workspace/skills/linear/scripts/linear.sh project phoenixflow`) then PM_QUEUE for available Backlog work. Keep Ready queue depth >= 2x active execution agents. If no PM-ready orchestration work this cycle, post `🟡 Idle | pm` in #pf-backlog once."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771170044606,
+        "lastRunAtMs": 1771169864616,
+        "lastStatus": "ok",
+        "lastDurationMs": 38095,
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771170044614
+      }
+    },
+    {
+      "id": "0e78646f-5c47-4f65-9fb5-fa70475b0aac",
+      "agentId": "pm",
+      "name": "pm-backlog-grooming",
+      "enabled": true,
+      "createdAtMs": 1771135126009,
+      "updatedAtMs": 1771136920165,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 7200000,
+        "anchorMs": 1771135126009
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Reconcile Linear project `phoenixflow` into PM_QUEUE: add missing Backlog entries, split oversized work, and keep role-matched Ready capacity."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771171126009
+      }
+    },
+    {
+      "id": "9d8770ed-28b5-4e8d-9dbb-edafa4b8b3e6",
+      "agentId": "pm",
+      "name": "pm-sprint-planning",
+      "enabled": true,
+      "createdAtMs": 1771135127375,
+      "updatedAtMs": 1771136920862,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 86400000,
+        "anchorMs": 1771135127375
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Build sprint goal from Linear + PM_QUEUE and update planning scope with explicit target outcomes per role."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771221527375
+      }
+    },
+    {
+      "id": "b2515d93-0854-4cc8-8358-0e7222e685c6",
+      "agentId": "pm",
+      "name": "pm-sprint-checkpoint",
+      "enabled": true,
+      "createdAtMs": 1771135128743,
+      "updatedAtMs": 1771136921533,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 14400000,
+        "anchorMs": 1771135128743
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Run sprint checkpoint and update PM_QUEUE + Linear states for at-risk, blocked, and resequenced tasks with owners and next actions."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771178328743
+      }
+    },
+    {
+      "id": "34d6c597-5f1f-498c-880c-2160af9e7d66",
+      "agentId": "dev-backend",
+      "name": "dev-backend-loop",
+      "enabled": true,
+      "createdAtMs": 1771135130124,
+      "updatedAtMs": 1771170025869,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 420000,
+        "anchorMs": 1771135130124
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Query Linear `team MON`/project `phoenixflow` then PM_QUEUE for one Backlog `Role: dev-backend`, `Owner: unassigned` item. Claim it, run tests, set Linear/PM_QUEUE to progress, and post `🟡 Idle | dev-backend` in #pf-dev-backend if none found."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771170410124,
+        "lastRunAtMs": 1771169990133,
+        "lastStatus": "ok",
+        "lastDurationMs": 35736,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "72e7edfb-6070-4d58-b105-b27ce3424388",
+      "agentId": "dev-data",
+      "name": "dev-data-loop",
+      "enabled": true,
+      "createdAtMs": 1771135131488,
+      "updatedAtMs": 1771167287760,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 420000,
+        "anchorMs": 1771135131488
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Query Linear `team MON`/project `phoenixflow` then PM_QUEUE for one Backlog `Role: dev-data`, `Owner: unassigned` item. Claim it, implement safely, run deterministic checks, and sync Linear/PM_QUEUE progress; if none found, post `🟡 Idle | dev-data` in #pf-dev-data using protocol lines."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771170411488,
+        "lastRunAtMs": 1771167137586,
+        "lastStatus": "ok",
+        "lastDurationMs": 150174,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "8220770c-7476-460d-a11c-b4a1c10fb8e2",
+      "agentId": "dev-infra",
+      "name": "dev-infra-loop",
+      "enabled": true,
+      "createdAtMs": 1771135132862,
+      "updatedAtMs": 1771167370308,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 420000,
+        "anchorMs": 1771135132862
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Query Linear `team MON`/project `phoenixflow` then PM_QUEUE for one Backlog `Role: dev-infra`, `Owner: unassigned` item. Claim it, validate CI/ops impact, and sync progress in Linear + PM_QUEUE; if none found, post `🟡 Idle | dev-infra` in #pf-dev-infra using protocol lines."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771170412862,
+        "lastRunAtMs": 1771167287761,
+        "lastStatus": "ok",
+        "lastDurationMs": 82547,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "3635db12-c34e-41ff-b492-0149bdaa20d0",
+      "agentId": "qa",
+      "name": "qa-validation-loop",
+      "enabled": true,
+      "createdAtMs": 1771135134239,
+      "updatedAtMs": 1771167494764,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 420000,
+        "anchorMs": 1771135134239
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Pull `In Review` tasks from PM_QUEUE and validate against Linear `project phoenixflow`. Post evidence for pass/fail and move to `done` or `blocked` in both systems. If no QA candidates exist, post `🟡 Idle | qa` in #pf-qa using protocol lines."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771170414239,
+        "lastRunAtMs": 1771167474248,
+        "lastStatus": "ok",
+        "lastDurationMs": 20516,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "b3872c84-9e89-46f0-8d7c-2dd746da854c",
+      "agentId": "qa",
+      "name": "qa-regression-sweep",
+      "enabled": true,
+      "createdAtMs": 1771135135605,
+      "updatedAtMs": 1771136924917,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 43200000,
+        "anchorMs": 1771135135605
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Run regression sweep for recent Review/Done work from PM_QUEUE + Linear `project phoenixflow`, then post risk summary in PM_QUEUE notes. If no regression sweep scope found, post `🟡 Idle | qa` in #pf-qa using protocol lines."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771178335605
+      }
+    },
+    {
+      "id": "d3aa271b-b957-4610-9419-0b553b3d5fb9",
+      "agentId": "retro",
+      "name": "retro-process-review",
+      "enabled": true,
+      "createdAtMs": 1771135136979,
+      "updatedAtMs": 1771136925593,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 86400000,
+        "anchorMs": 1771135136979
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read CURRENT_CONTEXT.md and AGENT_PROTOCOL.md. Analyze cycle outcome (Linear + PM_QUEUE): blockers, throughput, defects, unstarted inventory. Create measurable improvements and post in #pf-retro; if no new signal, post `🟡 Idle | retro` in #pf-retro."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1771221536979
+      }
+    }
+  ]
+}
