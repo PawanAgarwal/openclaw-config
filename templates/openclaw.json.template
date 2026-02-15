@@ -25,7 +25,7 @@
       "models": {
         "openai-codex/gpt-5.3-codex": {}
       },
-      "workspace": "/Users/pawanagarwal/.openclaw/workspace",
+      "workspace": "__OPENCLAW_ROOT__/workspace",
       "compaction": {
         "mode": "safeguard"
       },
@@ -41,8 +41,8 @@
       {
         "id": "pm",
         "name": "pm",
-        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/pm",
-        "agentDir": "/Users/pawanagarwal/.openclaw/agents/pm/agent",
+        "workspace": "__OPENCLAW_ROOT__/workspaces/pm",
+        "agentDir": "__OPENCLAW_ROOT__/agents/pm/agent",
         "model": "openai-codex/gpt-5.3-codex",
         "identity": {
           "name": "Compass",
@@ -52,8 +52,8 @@
       {
         "id": "dev-backend",
         "name": "dev-backend",
-        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/dev-backend",
-        "agentDir": "/Users/pawanagarwal/.openclaw/agents/dev-backend/agent",
+        "workspace": "__OPENCLAW_ROOT__/workspaces/dev-backend",
+        "agentDir": "__OPENCLAW_ROOT__/agents/dev-backend/agent",
         "model": "openai-codex/gpt-5.3-codex",
         "identity": {
           "name": "Bolt",
@@ -63,8 +63,8 @@
       {
         "id": "dev-data",
         "name": "dev-data",
-        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/dev-data",
-        "agentDir": "/Users/pawanagarwal/.openclaw/agents/dev-data/agent",
+        "workspace": "__OPENCLAW_ROOT__/workspaces/dev-data",
+        "agentDir": "__OPENCLAW_ROOT__/agents/dev-data/agent",
         "model": "openai-codex/gpt-5.3-codex",
         "identity": {
           "name": "Delta",
@@ -74,8 +74,8 @@
       {
         "id": "dev-infra",
         "name": "dev-infra",
-        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/dev-infra",
-        "agentDir": "/Users/pawanagarwal/.openclaw/agents/dev-infra/agent",
+        "workspace": "__OPENCLAW_ROOT__/workspaces/dev-infra",
+        "agentDir": "__OPENCLAW_ROOT__/agents/dev-infra/agent",
         "model": "openai-codex/gpt-5.3-codex",
         "identity": {
           "name": "Forge",
@@ -85,8 +85,8 @@
       {
         "id": "qa",
         "name": "qa",
-        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/qa",
-        "agentDir": "/Users/pawanagarwal/.openclaw/agents/qa/agent",
+        "workspace": "__OPENCLAW_ROOT__/workspaces/qa",
+        "agentDir": "__OPENCLAW_ROOT__/agents/qa/agent",
         "model": "openai-codex/gpt-5.3-codex",
         "identity": {
           "name": "Probe",
@@ -96,8 +96,8 @@
       {
         "id": "retro",
         "name": "retro",
-        "workspace": "/Users/pawanagarwal/.openclaw/workspaces/retro",
-        "agentDir": "/Users/pawanagarwal/.openclaw/agents/retro/agent",
+        "workspace": "__OPENCLAW_ROOT__/workspaces/retro",
+        "agentDir": "__OPENCLAW_ROOT__/agents/retro/agent",
         "model": "openai-codex/gpt-5.3-codex",
         "identity": {
           "name": "Kaizen",

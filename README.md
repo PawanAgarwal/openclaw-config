@@ -11,11 +11,16 @@ This repository stores OpenClaw team/agent operating configuration so it can be 
 
 ## Notes on paths
 
-All paths in the bundled agent instructions currently point at:
-- `/Users/pawanagarwal/github/phenixflow`
+All agent prompts in this repo reference:
 - `./projects/phenixflow`
+- `https://github.com/pawanagarwal/phenixflow`
+- workspace/repo paths under `/Users/pawanagarwal`
 
-Keep these in sync with your active project by editing the files in `workspaces/*/CURRENT_CONTEXT.md` and `workspaces/*/TOOLS.md`.
+Keep these in sync with your active machine/project by editing:
+- `workspaces/*/CURRENT_CONTEXT.md`
+- `workspaces/*/TOOLS.md`
+
+`templates/openclaw.json.template` uses `__OPENCLAW_ROOT__` and `__OPENCLAW_ROOT__/workspaces/*` placeholders. Replace these before generating `~/.openclaw/openclaw.json`.
 
 ## Apply to local OpenClaw
 
@@ -35,7 +40,7 @@ Then place real credentials in:
 ```bash
 cp templates/openclaw.json.template "$HOME/.openclaw/openclaw.json"
 # Edit placeholders before running openclaw:
-#   __SLACK_BOT_TOKEN__, __SLACK_APP_TOKEN__, __OPENCLAW_GATEWAY_TOKEN__, __TELEGRAM_BOT_TOKEN__
+#   __OPENCLAW_ROOT__, __SLACK_BOT_TOKEN__, __SLACK_APP_TOKEN__, __OPENCLAW_GATEWAY_TOKEN__, __TELEGRAM_BOT_TOKEN__
 ```
 
 Do not commit tokens or secret keys into git.
