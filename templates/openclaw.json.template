@@ -35,9 +35,10 @@
       }
     },
     "list": [
-      {
-        "id": "main"
-      },
+    {
+      "id": "main",
+      "model": "openai-codex/gpt-5.3-codex"
+    },
       {
         "id": "pm",
         "name": "pm",
@@ -51,7 +52,6 @@
             "dev-infra",
             "qa"
           ],
-          "maxConcurrent": 8,
           "thinking": "off"
         },
         "identity": {
