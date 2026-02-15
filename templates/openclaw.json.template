@@ -231,13 +231,6 @@
     {
       "agentId": "pm",
       "match": {
-        "channel": "slack",
-        "accountId": "default"
-      }
-    },
-    {
-      "agentId": "pm",
-      "match": {
         "channel": "telegram",
         "accountId": "default"
       }
